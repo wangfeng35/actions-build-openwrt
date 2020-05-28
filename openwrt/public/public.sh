@@ -4,10 +4,11 @@
 # wifi_name="OpenWrt"       # Wifi 名字 ,放到了单独设备的sh文件中了
 lan_ip='192.168.2.1'        # Lan Ip地址
 utc_name='Asia\/Shanghai'   # 时区
-delete_bootstrap=true       # 是否删除默认主题 true 、false
+delete_bootstrap=false       # 是否删除默认主题 true 、false
 default_theme='argon_mc1'   # 默认主题 结合主题文件夹名字
 theme_argon='https://github.com/sypopo/luci-theme-argon-mc.git'  # 主题地址
-openClash_url='https://github.com/vernesong/OpenClash.git'       # OpenClash包地址
+# openClash_url='https://github.com/vernesong/OpenClash.git'       # OpenClash包地址
+openClash_url='https://github.com/frainzy1477/luci-app-clash.git'
 adguardhome_url='https://github.com/rufengsuixing/luci-app-adguardhome.git' # adguardhome 包地址
 lienol_url='https://github.com/Lienol/openwrt-package.git'       # Lienol 包地址
 vssr_url_rely='https://github.com/jerrykuku/lua-maxminddb.git'   # vssr lua-maxminddb依赖
@@ -44,11 +45,12 @@ git clone $theme_argon package/lean/luci-theme-argon-mc
 echo 'CONFIG_PACKAGE_luci-theme-argon-mc=y' >> .config
 
 echo '添加OpenClash'
-git clone $openClash_url package/lean/luci-app-openclash
-
+# git clone $openClash_url package/lean/luci-app-openclash
+git clone $openClash_url package/lean/luci-app-clash
 #  OpenClash
-echo 'CONFIG_PACKAGE_luci-app-openclash=y' >> .config
-echo 'CONFIG_PACKAGE_luci-i18n-openclash-zh-cn=y'  >> .config
+echo 'CONFIG_PACKAGE_luci-app-clash=y' >> .config
+# echo 'CONFIG_PACKAGE_luci-app-openclash=y' >> .config
+# echo 'CONFIG_PACKAGE_luci-i18n-openclash-zh-cn=y'  >> .config
 
 echo '添加Lienol包'
 git clone $lienol_url package/Lienol
@@ -72,11 +74,11 @@ echo 'CONFIG_PACKAGE_luci-i18n-filebrowser-zh-cn=y'  >> .config
 # echo 'CONFIG_PACKAGE_luci-app-adguardhome=y' >> .config
 # echo 'CONFIG_PACKAGE_luci-i18n-adguardhome-zh-cn=y'  >> .config
 
-# echo '添加HelloWord,并使用包默认的配置'  # TODO 这个的配置文件和SSP 冲突
-# git clone $vssr_url_rely package/lean/lua-maxminddb
-# git clone $vssr_url package/lean/luci-app-vssr
-# echo 'CONFIG_PACKAGE_luci-app-vssr=y' >> .config
-# echo 'CONFIG_PACKAGE_luci-i18n-vssr-zh-cn=y'  >> .config
+echo '添加HelloWord,并使用包默认的配置'  # TODO 这个的配置文件和SSP 冲突
+git clone $vssr_url_rely package/lean/lua-maxminddb
+git clone $vssr_url package/lean/luci-app-vssr
+echo 'CONFIG_PACKAGE_luci-app-vssr=y' >> .config
+echo 'CONFIG_PACKAGE_luci-i18n-vssr-zh-cn=y'  >> .config
 
 echo '添加OpenAppFilter过滤器'
 git clone $filter_url package/OpenAppFilter
